@@ -48,6 +48,17 @@ def delete_client (client_name):
         print("Deleted successfuly!")
         list_clients()
 
+def search_client(client_name):
+    """Searches for a specific client on the list and returns: True if found, False if not """
+
+    global clients
+    clients_list = clients.split(",")
+    for client in clients_list:
+        if client == client_name:
+            return True
+    
+    return False
+
 #-----------PRIVATE FUNCTIONS-------------------
 
 def _add_comma ():
@@ -66,6 +77,7 @@ def _print_welcome ():
     print("[L]ist clients")
     print("[U]pdate")
     print("[D]elete client")
+    print("[S]earch client")
 
 def _get_client_name () :
     """Private function that returns the name given by the user"""
@@ -99,6 +111,17 @@ if __name__ == "__main__":
         
         client_name = _get_client_name()
         delete_client(client_name)
+
+    elif command == "S":
+        print("***** Search Client *****")
+
+        client_name = _get_client_name()
+        found = search_client(client_name)
+
+        if found:
+            print("The client is on the list")
+        else:
+            print("Sorry, {} is not on the list".format(client_name))
 
     else:
         print("Command not found")
