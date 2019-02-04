@@ -37,8 +37,16 @@ def update_client (client_name):
 
 
 
-def delete_client ():
-    pass
+def delete_client (client_name):
+    """Searches the clients list for the given nane, if it exists, deletes the client"""
+
+    global clients
+    if client_name not in clients:
+        print("Client not found!")
+    else:
+        clients = clients.replace(client_name + ",", "")
+        print("Deleted successfuly!")
+        list_clients()
 
 #-----------PRIVATE FUNCTIONS-------------------
 
@@ -82,7 +90,8 @@ if __name__ == "__main__":
         update_client(client_name)
 
     elif command == "D":
-        delete_client()
+        client_name = _get_client_name()
+        delete_client(client_name)
 
     else:
         print("Command not found")
