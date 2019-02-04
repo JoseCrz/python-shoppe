@@ -63,6 +63,7 @@ def _print_welcome ():
     print("-" * 50)
     print("What would you like to do?")
     print("[C]reate client")
+    print("[L]ist clients")
     print("[U]pdate")
     print("[D]elete client")
 
@@ -82,6 +83,10 @@ if __name__ == "__main__":
 
         client_name = _get_client_name()
         create_client(client_name)
+
+    elif command == "L":
+        print("***** List of clients *****")
+        list_clients()
     
     elif command == "U":
         print("***** Update Client *****")
