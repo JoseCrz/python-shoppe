@@ -6,8 +6,10 @@ def list_clients ():
     print(clients)
 
 
-#Function that creates a client 
+
 def create_client (client_name):
+    """Recieves a client name, if it doesn't exists, is added to the list, else is ommited"""
+
     global clients
     if client_name not in clients:
         clients += client_name
@@ -17,24 +19,31 @@ def create_client (client_name):
         print("Client already exists!")
         
 
-#Funciont that deletes a client
 def delete_client ():
     pass
 
-    
-# Private functions that adds a comma to separate each client on the list
+#-----------PRIVATE FUNCTIONS-------------------
+
 def _add_comma ():
+    """Private functions that adds a comma to separate each client on the list"""
     global clients
     clients += ","
 
-    
-#Private function that prints a menu
+
 def _print_welcome ():
+    """Private function that prints a menu"""
+
     print("Welcome to the Shoppe Administration")
     print("*" * 50)
     print("What would you like to do?")
     print("[C]reate client")
+    print("[U]pdate")
     print("[D]elete client")
+
+def _get_client_name () :
+    """Private function that returns the name given by the user"""
+
+    return input("What's the client name?: ")
 
 
 if __name__ == "__main__":
@@ -42,8 +51,10 @@ if __name__ == "__main__":
     command = input("type letter: ")
 
     if command == "C":
-        client_name = input("What's the client name?: ")
-        create_client(client_name)
+        client_name = _get_client_name()
+    
+    elif command == "U":
+        client_name = _get_client_name()
 
     elif command == "D":
         delete_client()
