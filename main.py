@@ -90,6 +90,8 @@ if __name__ == "__main__":
         update_client(client_name)
 
     elif command == "D":
+        print("***** Delete Client *****")
+        
         client_name = _get_client_name()
         delete_client(client_name)
 
