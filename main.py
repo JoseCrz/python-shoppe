@@ -83,7 +83,9 @@ def _get_clients_from_file ():
     
     #Checks if the file exist, if not, is created
     if not os.path.exists(CLIENTS_FILE_NAME):
-        with open(CLIENTS_FILE_NAME, mode="w"): pass
+        with open(CLIENTS_FILE_NAME, mode="w") as f:
+            writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+            writer.writerow({"name": "name", "company": "company", "email":"email", "position": "position"})
 
     with open(CLIENTS_FILE_NAME, mode="r") as f:
         reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
