@@ -42,16 +42,25 @@ def update_client (client_name):
     """Searches the clients list for the name given, if it exists, asks the user for the updated version"""
     
 
-    global clients 
-    if client_name not in clients:
-        print("Client not found!")
+    global clients
+    client = search_client(client_name)
+
+    if client:
+        client_index = clients.index(client)
+        print("~~~ Leave blank if you don't want to update that field ~~~")
+        updated_name = input("What's the new name?: ")
+        if updated_name:
+            clients[client_index]["name"] = updated_name
+
+        updated_company = input("What's the new company?: ")
+        if updated_company:
+            clients[client_index]["company"] = updated_company        
         
-    else:
-        updated_client_name = input("What's the new name?: ")
-        client_to_update_index = clients.index(client_name)
-        clients[client_to_update_index] = updated_client_name
-        print("Update successful!")
+        print("Update successful")
         list_clients()
+    else:
+        print("Client not found!")
+            
 
 
 
