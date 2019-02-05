@@ -46,23 +46,20 @@ def update_client (client_name):
     client = search_client(client_name)
 
     if client:
-        client_index = clients.index(client)
+        client_to_update_index = clients.index(client)
         print("~~~ Leave blank if you don't want to update that field ~~~")
-        updated_name = input("What's the new name?: ")
-        if updated_name:
-            clients[client_index]["name"] = updated_name
 
-        updated_company = input("What's the new company?: ")
-        if updated_company:
-            clients[client_index]["company"] = updated_company        
-        
+        for key in clients[client_to_update_index].keys():
+            updated_info = input("What's the new {}?: ".format(key))
+            if updated_info:
+                clients[client_to_update_index][key] = updated_info
+            
         print("Update successful")
         list_clients()
+            
     else:
         print("Client not found!")
             
-
-
 
 def delete_client (client_name):
     """Searches the clients list for the given nane, if it exists, deletes the client"""
