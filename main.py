@@ -1,19 +1,10 @@
 import sys
+import csv
+import os
 
-clients = [
-    {
-        "name": "José",
-        "company": "Apple",
-        "email": "cueramjose@gmail.com",
-        "position": "Software Engineer"
-    },
-    {
-        "name": "Eugenio",
-        "company": "Bad Robot Productions",
-        "email": "eugenio@badrobot.com",
-        "position": "Film Director"
-    }
-]
+CLIENTS_FILE_NAME = ".clients.csv"
+CLIENT_SCHEMA = ["name", "company", "email", "position"]
+clients = []
 
 
 def list_clients ():
@@ -33,7 +24,8 @@ def create_client (client):
     global clients
     if client not in clients:
         clients.append(client)
-        list_clients()
+        #list_clients()
+        print("Client successfully created")
     else:
         print("Client already exists!")
 
@@ -69,7 +61,7 @@ def delete_client (client_name):
     if client:
         clients.remove(client)
         print("Client deleted successfuly!")
-        list_clients()
+        #list_clients()
     else:
         print("Client not found!")
 
@@ -85,6 +77,26 @@ def search_client(client_name):
     return False
 
 #-----------PRIVATE FUNCTIONS-------------------
+
+def _get_clients_from_file ():
+    """retrieves the clients data from a CSV file and puts in a dictionary"""
+
+    with open(CLIENTS_FILE_NAME, mode="r") as f:
+        reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
+        for row in reader:
+            clients.append(row)
+
+
+def _save_clients_to_file ():
+    """Saves the clients to a CSV file for data persistency"""
+
+    tmp_file_name = "{}.tmp".format(CLIENTS_FILE_NAME)
+    with open(tmp_file_name, mode="w") as f:
+        writer = csv.DictWriter(f, fieldnames=CLIENT_SCHEMA)
+        writer.writerows(clients)
+
+        os.remove(CLIENTS_FILE_NAME)
+        os.rename(tmp_file_name, CLIENTS_FILE_NAME)
 
 def _print_welcome ():
     """Private function that prints a menu"""
@@ -121,9 +133,13 @@ def _get_client_info (info_field):
     info = input("What is the client's {}? : ".format(info_field))
     return info 
 
-
+#___________________________________________________
+#---------------------- MAIN -----------------------
+#___________________________________________________
 
 if __name__ == "__main__":
+    _get_clients_from_file()
+
     _print_welcome()
     command = input("type letter: ")
     command = command.upper()
@@ -147,7 +163,7 @@ if __name__ == "__main__":
     elif command == "U":
         print("***** Update Client *****")
 
-        client_name = _get_client_name()
+        client_name = _get_client_info("name")
         update_client(client_name)
 
     elif command == "D":
@@ -169,4 +185,6 @@ if __name__ == "__main__":
 
     else:
         print("Command not found")
+    
+    _save_clients_to_file()
 
