@@ -1,13 +1,14 @@
 import sys
 
-clients = "José,Sara,"
+clients = ["José", "Sara"]
 
 
 def list_clients ():
     """Lists all the clients"""
 
     global clients
-    print(clients)
+    for idx, client in enumerate(clients):
+        print("{}: {}".format(idx, client))
 
 
 
@@ -16,8 +17,7 @@ def create_client (client_name):
 
     global clients
     if client_name not in clients:
-        clients += client_name
-        _add_comma()
+        clients.append(client_name)
         list_clients()
     else:
         print("Client already exists!")
@@ -33,7 +33,8 @@ def update_client (client_name):
         
     else:
         updated_client_name = input("What's the new name?: ")
-        clients = clients.replace(client_name + ",", updated_client_name + ",")
+        client_to_update_index = clients.index(client_name)
+        clients[client_to_update_index] = updated_client_name
         print("Update successful!")
         list_clients()
 
@@ -46,7 +47,7 @@ def delete_client (client_name):
     if client_name not in clients:
         print("Client not found!")
     else:
-        clients = clients.replace(client_name + ",", "")
+        clients.remove(client_name)
         print("Deleted successfuly!")
         list_clients()
 
@@ -54,20 +55,14 @@ def search_client(client_name):
     """Searches for a specific client on the list and returns: True if found, False if not """
 
     global clients
-    clients_list = clients.split(",")
-    for client in clients_list:
+    
+    for client in clients:
         if client == client_name:
             return True
     
     return False
 
 #-----------PRIVATE FUNCTIONS-------------------
-
-def _add_comma ():
-    """Private functions that adds a comma to separate each client on the list"""
-    global clients
-    clients += ","
-
 
 def _print_welcome ():
     """Private function that prints a menu"""
