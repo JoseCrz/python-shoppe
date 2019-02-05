@@ -59,21 +59,22 @@ def delete_client (client_name):
     """Searches the clients list for the given nane, if it exists, deletes the client"""
 
     global clients
-    if client_name not in clients:
-        print("Client not found!")
-    else:
-        clients.remove(client_name)
-        print("Deleted successfuly!")
+    client = search_client(client_name)
+    if client:
+        clients.remove(client)
+        print("Client deleted successfuly!")
         list_clients()
+    else:
+        print("Client not found!")
 
 def search_client(client_name):
-    """Searches for a specific client on the list and returns: True if found, False if not """
+    """Searches for a specific client on the list and returns the client if found """
 
     global clients
     
     for client in clients:
         if client["name"] == client_name:
-            return True
+            return client
     
     return False
 
@@ -146,7 +147,7 @@ if __name__ == "__main__":
     elif command == "D":
         print("***** Delete Client *****")
         
-        client_name = _get_client_name()
+        client_name = _get_client_info("name")
         delete_client(client_name)
 
     elif command == "S":
