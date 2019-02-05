@@ -1,6 +1,19 @@
 import sys
 
-clients = ["José", "Sara"]
+clients = [
+    {
+        "name": "José",
+        "company": "Apple",
+        "email": "cueramjose@gmail.com",
+        "position": "Software Engineer"
+    },
+    {
+        "name": "Eugenio",
+        "company": "Bad Robot Productions",
+        "email": "eugenio@badrobot.com",
+        "position": "Film Director"
+    }
+]
 
 
 def list_clients ():
@@ -8,7 +21,9 @@ def list_clients ():
 
     global clients
     for idx, client in enumerate(clients):
-        print("{}: {}".format(idx, client))
+        print("{uid} | {name} | {company} | {email} | {position}"
+        .format(uid=idx, name = client["name"], company = client["company"], email = client["email"], position = client["position"]))
+
 
 
 
