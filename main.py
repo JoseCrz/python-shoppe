@@ -27,12 +27,12 @@ def list_clients ():
 
 
 
-def create_client (client_name):
+def create_client (client):
     """Recieves a client name, if it doesn't exists, is added to the list, else is ommited"""
 
     global clients
-    if client_name not in clients:
-        clients.append(client_name)
+    if client not in clients:
+        clients.append(client)
         list_clients()
     else:
         print("Client already exists!")
@@ -72,7 +72,7 @@ def search_client(client_name):
     global clients
     
     for client in clients:
-        if client == client_name:
+        if client["name"] == client_name:
             return True
     
     return False
@@ -109,6 +109,13 @@ def _get_client_name () :
     return client_name
 
 
+def _get_client_info (info_field):
+    """Ask the user for the specified field"""
+    info = input("What is the client's {}? : ".format(info_field))
+    return info 
+
+
+
 if __name__ == "__main__":
     _print_welcome()
     command = input("type letter: ")
@@ -117,8 +124,14 @@ if __name__ == "__main__":
     if command == "C":
         print("***** Create Client *****")
 
-        client_name = _get_client_name()
-        create_client(client_name)
+        client = {
+            "name": _get_client_info("name"),
+            "company": _get_client_info("company"),
+            "email": _get_client_info("email"),
+            "position": _get_client_info("position")
+        }
+
+        create_client(client)
 
     elif command == "L":
         print("***** List of clients *****")
@@ -139,7 +152,7 @@ if __name__ == "__main__":
     elif command == "S":
         print("***** Search Client *****")
 
-        client_name = _get_client_name()
+        client_name = _get_client_info("name")
         found = search_client(client_name)
 
         if found:
