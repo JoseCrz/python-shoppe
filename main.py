@@ -80,6 +80,10 @@ def search_client(client_name):
 
 def _get_clients_from_file ():
     """retrieves the clients data from a CSV file and puts in a dictionary"""
+    
+    #Checks if the file exist, if not, is created
+    if not os.path.exists(CLIENTS_FILE_NAME):
+        with open(CLIENTS_FILE_NAME, mode="w"): pass
 
     with open(CLIENTS_FILE_NAME, mode="r") as f:
         reader = csv.DictReader(f, fieldnames=CLIENT_SCHEMA)
