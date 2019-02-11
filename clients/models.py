@@ -1,13 +1,13 @@
 import uuid
 
-class Client:
+class ClientModel:
 
     def __init__ (self, name, company, email, position, uid=None):
         self.name = name
         self.company = company
         self.email = email
         self.position = position
-        self.uuid = uid or uuid.uuid4()
+        self.uid = uid or uuid.uuid4()
 
     def to_dict (self):
         return vars(self)
