@@ -11,3 +11,9 @@ class ClientServices:
         with open(self.file_name, mode = "a") as f:
             writer = csv.DictWriter(f, fieldnames = ClientModel.schema())
             writer.writerow(client.to_dict())
+    
+    def list_clients (self):
+        with open(self.file_name, mode = "r") as f:
+            reader = csv.DictReader(f, fieldnames = ClientModel.schema())
+
+            return list(reader)
