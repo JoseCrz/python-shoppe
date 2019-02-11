@@ -1,2 +1,4 @@
 .clients.csv
 .vscode
+shoppe.egg-info
+__pycache__
